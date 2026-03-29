@@ -76,4 +76,15 @@ async def add_inventory(item: Ingredient):
     result = generate_schedule(mock_db)
     return result
 
+@app.delete("/api/inventory/{item_id}", response_model=ScheduleResponse)
+async def delete_inventory(item_id: str):
+    """
+    Removes an item from the in-memory array by ID and returns the recalculated schedule.
+    """
+    global mock_db
+    mock_db = [item for item in mock_db if item["id"] != item_id]
+    
+    # Recalculate and return new critical path
+    return generate_schedule(mock_db)
+
 # You would run this locally with: uvicorn main:app --reload
