@@ -15,6 +15,9 @@ export interface CriticalPathMeal {
   day: number;
   meal_name: string;
   consumed_ingredients: string[];
+  prep_time?: number;
+  calories?: number;
+  description?: string;
 }
 
 export interface ScheduleResponse {
