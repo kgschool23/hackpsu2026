@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
-const mono = JetBrains_Mono({
-  variable: "--font-mono",
+const inter = Inter({
+  variable: "--font-sans",
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
-  title: "ECP // Expiration Critical Path",
+  title: "PrepSmart — Intelligent Meal Prep",
   description:
-    "Minimizes household food waste by scheduling meals against item expiration dates. HackPSU 2026.",
+    "Minimize food waste and eat smarter with AI-driven meal scheduling, macro tracking, and smart grocery lists. Built for busy students.",
 };
 
 export default function RootLayout({
@@ -20,8 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${mono.variable} dark`}>
-      <body className="min-h-dvh font-mono">{children}</body>
+    <html lang="en" className={`${inter.variable} dark`}>
+      <body className="min-h-dvh">{children}</body>
     </html>
   );
 }

@@ -10,20 +10,7 @@ export const dynamic = "force-dynamic";
 
 const MOCK_DATA: ScheduleResponse = {
   generated_at: new Date().toISOString(),
-  inventory: [
-    { id: "inv-001", name: "Chicken Breast",   days_to_live: 2,  status: "critical" },
-    { id: "inv-002", name: "Ground Beef",      days_to_live: 3,  status: "critical" },
-    { id: "inv-003", name: "Spinach",          days_to_live: 4,  status: "warning"  },
-    { id: "inv-004", name: "Bell Peppers",     days_to_live: 5,  status: "warning"  },
-    { id: "inv-005", name: "Milk (1 gal)",     days_to_live: 6,  status: "warning"  },
-    { id: "inv-006", name: "Cheddar Cheese",   days_to_live: 8,  status: "fresh"    },
-    { id: "inv-007", name: "Eggs (dozen)",     days_to_live: 10, status: "fresh"    },
-    { id: "inv-008", name: "Tortillas",        days_to_live: 12, status: "fresh"    },
-    { id: "inv-009", name: "Greek Yogurt",     days_to_live: 7,  status: "fresh"    },
-    { id: "inv-010", name: "Tomatoes",         days_to_live: 3,  status: "critical" },
-    { id: "inv-011", name: "Avocados",         days_to_live: 2,  status: "critical" },
-    { id: "inv-012", name: "Rice (dry)",       days_to_live: 14, status: "fresh"    },
-  ],
+  inventory: [],
   critical_path: [
     {
       day: 1,
