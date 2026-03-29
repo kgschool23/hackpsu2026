@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+/* ── Tailwind v4 theme ────────────────────────────────── */
+@theme inline {
+  /* palette */
+  --color-bg-primary:  #0c0c0e;
+  --color-bg-panel:    #141418;
+  --color-bg-surface:  #1c1c22;
+  --color-border:      #2a2a32;
+  --color-border-dim:  #1e1e26;
+
+  --color-text-primary:   #e0e0e0;
+  --color-text-secondary: #888892;
+  --color-text-dim:       #555560;
+
+  --color-neon-green:  #39ff14;
+  --color-neon-yellow: #facc15;
+  --color-neon-red:    #ff3131;
+  --color-neon-cyan:   #22d3ee;
+
+  /* fonts */
+  --font-mono: "JetBrains Mono", "Fira Code", "Cascadia Code", ui-monospace, monospace;
+}
+
+/* ── Global base ──────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 14px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* ── Scrollbar (webkit) ───────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-dim);
+}
+
+/* ── Selection colour ─────────────────────────────────── */
+::selection {
+  background: rgba(57, 255, 20, 0.2);
+  color: var(--color-neon-green);
+}
+
+/* ── Utility keyframes ────────────────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+
+@keyframes scanline {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 4px currentColor; }
+  50%      { box-shadow: 0 0 12px currentColor, 0 0 24px currentColor; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Reusable classes ─────────────────────────────────── */
+.panel {
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-neon-green), transparent);
+  opacity: 0.4;
+}
+
+.cursor-blink::after {
+  content: "█";
+  animation: blink 1s step-end infinite;
+  color: var(--color-neon-green);
+  margin-left: 2px;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.status-dot--critical {
+  background: var(--color-neon-red);
+  animation: pulse-glow 1.5s ease-in-out infinite;
+  color: var(--color-neon-red);
+}
+
+.status-dot--warning {
+  background: var(--color-neon-yellow);
+  color: var(--color-neon-yellow);
+}
+
+.status-dot--fresh {
+  background: var(--color-neon-green);
+  color: var(--color-neon-green);
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.4s ease-out both;
+}
