@@ -31,6 +31,9 @@ class ScheduledMeal(BaseModel):
     day: int
     meal_name: str
     consumed_ingredients: List[str]
+    prep_time: int = 15
+    calories: int = 500
+    description: str = "A meticulously generated AI recipe designed for 0% waste."
 
 class InventoryItemResponse(Ingredient):
     status: str
@@ -85,6 +88,37 @@ async def delete_inventory(item_id: str):
     mock_db = [item for item in mock_db if item["id"] != item_id]
     
     # Recalculate and return new critical path
+    return generate_schedule(mock_db)
+
+@app.delete("/api/inventory", response_model=ScheduleResponse)
+async def reset_inventory():
+    """
+    Clears the entire inventory.
+    """
+    global mock_db
+    mock_db = []
+    return generate_schedule(mock_db)
+
+@app.post("/api/inventory/seed", response_model=ScheduleResponse)
+async def seed_inventory():
+    """
+    Simulates a grocery run and populates the DAG with 12 structural constraints instantly.
+    """
+    global mock_db
+    mock_db = [
+        {"id": f"inv-{uuid.uuid4().hex[:6]}", "name": "Chicken Breast", "days_to_live": 2},
+        {"id": f"inv-{uuid.uuid4().hex[:6]}", "name": "Ground Beef", "days_to_live": 3},
+        {"id": f"inv-{uuid.uuid4().hex[:6]}", "name": "Spinach", "days_to_live": 4},
+        {"id": f"inv-{uuid.uuid4().hex[:6]}", "name": "Bell Peppers", "days_to_live": 5},
+        {"id": f"inv-{uuid.uuid4().hex[:6]}", "name": "Milk (1 gal)", "days_to_live": 6},
+        {"id": f"inv-{uuid.uuid4().hex[:6]}", "name": "Tomatoes", "days_to_live": 3},
+        {"id": f"inv-{uuid.uuid4().hex[:6]}", "name": "Avocados", "days_to_live": 2},
+        {"id": f"inv-{uuid.uuid4().hex[:6]}", "name": "Fresh Pasta", "days_to_live": 4},
+        {"id": f"inv-{uuid.uuid4().hex[:6]}", "name": "Parmesan", "days_to_live": 14},
+        {"id": f"inv-{uuid.uuid4().hex[:6]}", "name": "Butter", "days_to_live": 30},
+        {"id": f"inv-{uuid.uuid4().hex[:6]}", "name": "Eggs", "days_to_live": 12},
+        {"id": f"inv-{uuid.uuid4().hex[:6]}", "name": "Bacon", "days_to_live": 5},
+    ]
     return generate_schedule(mock_db)
 
 # You would run this locally with: uvicorn main:app --reload
